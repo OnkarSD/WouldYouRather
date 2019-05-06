@@ -1,24 +1,17 @@
-import React, { Component, Fragment } from 'react';
-import { NavLink } from 'react-router-dom';
-import { connect } from 'react-redux';
-import {
-  Menu,
-  Responsive,
-  Image,
-  Grid,
-  Button,
-  Container
-} from 'semantic-ui-react';
-import { setAuthUser } from '../actions/authUser';
+import React, { Component, Fragment } from 'react'
+import { NavLink } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { Menu, Responsive, Image, Grid, Button, Container } from 'semantic-ui-react'
+import { setAuthUser } from '../actions/authUser'
 
 class Nav extends Component {
   handleLogout = e => {
-    e.preventDefault();
-    this.props.setAuthUser(null);
-  };
+    e.preventDefault()
+    this.props.setAuthUser(null)
+  }
 
   render() {
-    const { authUser, users } = this.props;
+    const { authUser, users } = this.props
 
     return (
       <Container>
@@ -129,7 +122,7 @@ class Nav extends Component {
           </Grid>
         </Responsive>
       </Container>
-    );
+    )
   }
 }
 
@@ -137,10 +130,7 @@ function mapStateToProps({ users, authUser }) {
   return {
     authUser,
     users
-  };
+  }
 }
 
-export default connect(
-  mapStateToProps,
-  { setAuthUser }
-)(Nav);
+export default connect(mapStateToProps, { setAuthUser })(Nav)

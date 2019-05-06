@@ -1,33 +1,33 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
-import { Segment, Header, Grid, Image } from 'semantic-ui-react';
-import PollQuestion from './PollQuestion';
-import PollResult from './PollResult';
-import PollTeaser from './PollTeaser';
-import { colors } from '../utils/helpers';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
+import { Image } from 'semantic-ui-react'
+import PollQuestion from './PollQuestion'
+import PollResult from './PollResult'
+import PollTeaser from './PollTeaser'
+import { colors } from '../utils/helpers'
 
 const pollTypes = {
-  POLL_TEASER: 'POLL_TEASER',
+  POLL_SAMPLE: 'POLL_SAMPLE',
   POLL_QUESTION: 'POLL_QUESTION',
   POLL_RESULT: 'POLL_RESULT'
-};
+}
 
 const PollContent = props => {
-  const { pollType, question, unanswered } = props;
+  const { pollType, question, unanswered } = props
 
   switch (pollType) {
-    case pollTypes.POLL_TEASER:
-      return <PollTeaser question={question} unanswered={unanswered} />;
+    case pollTypes.POLL_SAMPLE:
+      return <PollTeaser question={question} unanswered={unanswered} />
     case pollTypes.POLL_QUESTION:
-      return <PollQuestion question={question} />;
+      return <PollQuestion question={question} />
     case pollTypes.POLL_RESULT:
-      return <PollResult question={question} />;
+      return <PollResult question={question} />
     default:
-      return;
+      return
   }
-};
+}
 
 export class UserCard extends Component {
   static propTypes = {
@@ -36,7 +36,7 @@ export class UserCard extends Component {
     pollType: PropTypes.string,
     unanswered: PropTypes.bool,
     question_id: PropTypes.string
-  };
+  }
   render() {
     const {
       author,
@@ -44,46 +44,40 @@ export class UserCard extends Component {
       pollType,
       badPath,
       unanswered = null
-    } = this.props;
+    } = this.props
 
     if (badPath === true) {
-      return <Redirect to="/questions/bad_id" />;
+      return <Redirect to="/questions/bad_id" />
     }
 
-    const tabColor = unanswered === true ? colors.green : colors.blue;
+    const tabColor = unanswered === true ? colors.green : colors.blue
     const borderTop =
       unanswered === null
         ? `1px solid ${colors.grey}`
-        : `2px solid ${tabColor.hex}`;
+        : `2px solid ${tabColor.hex}`
 
     return (
-      <Segment.Group>
-        <Header
-          as="h5"
-          textAlign="left"
-          block
-          attached="top"
-          style={{ borderTop: borderTop }}
-        >
+      <div className='card'>
+        <h3>
           {author.name} asks:
-        </Header>
+        </h3>
 
-        <Grid divided padded>
-          <Grid.Row>
-            <Grid.Column width={5}>
+        <div>
+          <div style={{ display: 'flex' }}>
+            <div style={{ flex: 1 }}>
               <Image src={author.avatarURL} />
-            </Grid.Column>
-            <Grid.Column width={11}>
+            </div>
+            <div style={{ flex: 4, padding: 10 }}>
               <PollContent
                 pollType={pollType}
                 question={question}
                 unanswered={unanswered}
               />
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </Segment.Group>
-    );
+            </div>
+          </div>
+        </div>
+      </div>
+    )
   }
 }
 
@@ -94,23 +88,23 @@ function mapStateToProps(
   let question,
     author,
     pollType,
-    badPath = false;
+    badPath = false
   if (question_id !== undefined) {
-    question = questions[question_id];
-    author = users[question.author];
-    pollType = pollTypes.POLL_TEASER;
+    question = questions[question_id]
+    author = users[question.author]
+    pollType = pollTypes.POLL_SAMPLE
   } else {
-    const { question_id } = match.params;
-    question = questions[question_id];
-    const user = users[authUser];
+    const { question_id } = match.params
+    question = questions[question_id]
+    const user = users[authUser]
 
     if (question === undefined) {
-      badPath = true;
+      badPath = true
     } else {
-      author = users[question.author];
-      pollType = pollTypes.POLL_QUESTION;
+      author = users[question.author]
+      pollType = pollTypes.POLL_QUESTION
       if (Object.keys(user.answers).includes(question.id)) {
-        pollType = pollTypes.POLL_RESULT;
+        pollType = pollTypes.POLL_RESULT
       }
     }
   }
@@ -120,7 +114,7 @@ function mapStateToProps(
     question,
     author,
     pollType
-  };
+  }
 }
 
-export default connect(mapStateToProps)(UserCard);
+export default connect(mapStateToProps)(UserCard)

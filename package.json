@@ -1,5 +1,5 @@
 {
-  "name": "reactnd-project-would-you-rather",
+  "name": "would-you-rather",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -27,8 +27,7 @@
   },
   "license": "MIT",
   "repository": {
-    "type": "git",
-    "url": "https://github.com/james-priest/reactnd-project-would-you-rather.git"
+    "type": "git"
   },
   "browserslist": [
     ">0.2%",

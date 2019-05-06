@@ -1,38 +1,38 @@
-import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { Header, Button, Form, Radio } from 'semantic-ui-react';
-import { handleSaveQuestionAnswer } from '../actions/users';
+import React, { Component, Fragment } from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { Radio } from 'semantic-ui-react'
+import { handleSaveQuestionAnswer } from '../actions/users'
 
 export class PollQuestion extends Component {
   static propTypes = {
     authUser: PropTypes.string.isRequired,
     handleSaveQuestionAnswer: PropTypes.func.isRequired,
     question: PropTypes.object.isRequired
-  };
+  }
   state = {
     value: ''
-  };
+  }
 
-  handleChange = (e, { value }) => this.setState({ value });
+  handleChange = (e, { value }) => this.setState({ value })
 
   handleSubmit = e => {
-    e.preventDefault();
+    e.preventDefault()
     if (this.state.value !== '') {
-      const { authUser, question, handleSaveQuestionAnswer } = this.props;
-      handleSaveQuestionAnswer(authUser, question.id, this.state.value);
+      const { authUser, question, handleSaveQuestionAnswer } = this.props
+      handleSaveQuestionAnswer(authUser, question.id, this.state.value)
     }
-  };
+  }
 
   render() {
-    const { question } = this.props;
-    const disabled = this.state.value === '' ? true : false;
+    const { question } = this.props
+    const disabled = this.state.value === '' ? true : false
 
     return (
-      <Fragment>
-        <Header as="h4">Would you rather</Header>
-        <Form onSubmit={this.handleSubmit}>
-          <Form.Field>
+      <React.Fragment>
+        <header as="h4">Would you rather</header>
+        <form onSubmit={this.handleSubmit}>
+          <form>
             <Radio
               label={question.optionOne.text}
               name="radioGroup"
@@ -48,34 +48,22 @@ export class PollQuestion extends Component {
               checked={this.state.value === 'optionTwo'}
               onChange={this.handleChange}
             />
-          </Form.Field>
-          <Form.Field>
-            <Button
-              color="green"
-              size="tiny"
-              fluid
-              positive
+            <input
+              type='submit'
               disabled={disabled}
-              content="Submit"
+              value="Submit"
             />
-          </Form.Field>
-        </Form>
-      </Fragment>
-    );
+          </form>
+        </form>
+      </React.Fragment>
+    )
   }
 }
 
 function mapStateToProps({ authUser }, { match }) {
-  // const { question_id } = match.params;
-  // const question = questions[question_id];
-
   return {
     authUser
-  };
+  }
 }
 
-export default connect(
-  mapStateToProps,
-  { handleSaveQuestionAnswer }
-)(PollQuestion);
-// export default PollQuestion;
+export default connect(mapStateToProps,{ handleSaveQuestionAnswer })(PollQuestion)

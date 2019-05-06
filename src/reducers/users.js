@@ -2,7 +2,7 @@ import {
   RECEIVE_USERS,
   ADD_ANSWER_TO_USER,
   ADD_QUESTION_TO_USER
-} from '../actions/users';
+} from '../actions/users'
 
 export default function users(state = {}, action) {
   switch (action.type) {
@@ -10,9 +10,9 @@ export default function users(state = {}, action) {
       return {
         ...state,
         ...action.users
-      };
+      }
     case ADD_ANSWER_TO_USER:
-      const { authUser, qid, answer } = action;
+      const { authUser, qid, answer } = action
 
       return {
         ...state,
@@ -23,9 +23,9 @@ export default function users(state = {}, action) {
             [qid]: answer
           }
         }
-      };
+      }
     case ADD_QUESTION_TO_USER:
-      const { id, author } = action;
+      const { id, author } = action
 
       return {
         ...state,
@@ -33,8 +33,8 @@ export default function users(state = {}, action) {
           ...state[author],
           questions: state[author].questions.concat(id)
         }
-      };
+      }
     default:
-      return state;
+      return state
   }
 }

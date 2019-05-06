@@ -1,7 +1,7 @@
 export const colors = {
   green: {
     name: 'green',
-    hex: '#21ba45'
+    hex: '#217a45'
   },
   blue: {
     name: 'blue',
@@ -9,17 +9,17 @@ export const colors = {
   },
   grey: {
     name: null,
-    hex: '#d4d4d5'
+    hex: '#f5f5f5'
   }
-};
+}
 
 export const styles = {
   primary: {
     color: 'green',
-    bgColor: 'honeydew'
+    bgColor: 'lightBlue'
   },
   secondary: {
     color: 'grey',
-    bgColor: '#f4f4f4'
+    bgColor: '#f5f5f5'
   }
-};
+}

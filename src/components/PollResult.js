@@ -1,63 +1,57 @@
-import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
+import React, { Component, Fragment } from 'react'
+import PropTypes from 'prop-types'
+import { withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
 import {
-  Header,
-  Segment,
   Progress,
   Label,
-  Button,
   Icon
-} from 'semantic-ui-react';
-import { styles } from '../utils/helpers';
+} from 'semantic-ui-react'
+import { styles } from '../utils/helpers'
 
 const YourVoteLabel = () => (
-  <Label color="orange" ribbon="right" className="vote">
+  <div className="vote">
     <Icon name="check circle outline" size="big" className="compact" />
     <div style={{ float: 'right' }}>
-      Your
-      <br />
-      Vote
+      Your Vote
     </div>
-  </Label>
-);
+  </div>
+)
 
 export class PollResult extends Component {
   static propTypes = {
     history: PropTypes.object.isRequired,
     question: PropTypes.object.isRequired,
     user: PropTypes.object.isRequired
-  };
+  }
   handleClick = () => {
-    this.props.history.push('/');
-  };
+    this.props.history.push('/')
+  }
 
   render() {
-    const { question, user } = this.props;
-    const optionOneVotes = question.optionOne.votes.length;
-    const optionTwoVotes = question.optionTwo.votes.length;
-    const votesTotal = optionOneVotes + optionTwoVotes;
-    const userVote = user.answers[question.id];
+    const { question, user } = this.props
+    const optionOneVotes = question.optionOne.votes.length
+    const optionTwoVotes = question.optionTwo.votes.length
+    const votesTotal = optionOneVotes + optionTwoVotes
+    const userVote = user.answers[question.id]
 
     let option1 = styles.secondary,
-      option2 = styles.secondary;
+      option2 = styles.secondary
     if (optionOneVotes > optionTwoVotes) {
-      option1 = styles.primary;
+      option1 = styles.primary
     } else if (optionTwoVotes > optionOneVotes) {
-      option2 = styles.primary;
+      option2 = styles.primary
     }
 
     return (
-      <Fragment>
-        <Header as="h3">
+      <React.Fragment>
+        <div className='header'>
           Results:
-          <Header.Subheader style={{ fontWeight: 'bold' }}>
+          <div style={{ fontWeight: '700' }}>
             Would you rather
-          </Header.Subheader>
-        </Header>
-        <Segment
-          color={option1.color}
+          </div>
+        </div>
+        <div
           style={{ backgroundColor: `${option1.bgColor}` }}
         >
           {userVote === 'optionOne' && <YourVoteLabel />}
@@ -69,9 +63,8 @@ export class PollResult extends Component {
           >
             {optionOneVotes} out of {votesTotal} votes
           </Progress>
-        </Segment>
-        <Segment
-          color={option2.color}
+        </div>
+        <div
           style={{ backgroundColor: `${option2.bgColor}` }}
         >
           {userVote === 'optionTwo' && <YourVoteLabel />}
@@ -84,22 +77,18 @@ export class PollResult extends Component {
           >
             {optionTwoVotes} out of {votesTotal} votes
           </Progress>
-        </Segment>
-        {/* <Form.Field> */}
-        <Button size="tiny" floated="right" onClick={this.handleClick}>
-          Back
-        </Button>
-        {/* </Form.Field> */}
-      </Fragment>
-    );
+        </div>
+        <input type='submit' value='Back' onClick={this.handleClick}/>
+      </React.Fragment>
+    )
   }
 }
 
 function mapStateToProps({ users, authUser }) {
-  const user = users[authUser];
+  const user = users[authUser]
   return {
     user
-  };
+  }
 }
 
-export default withRouter(connect(mapStateToProps)(PollResult));
+export default withRouter(connect(mapStateToProps)(PollResult))
