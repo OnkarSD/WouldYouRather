@@ -23,11 +23,7 @@ class App extends Component {
         <div className="App">
           {authUser === null ? (
             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-            <Route
-              render={() => (
-                <Login />
-              )}
-            />
+              <Login />
             </div>
           ) : (
             <React.Fragment>
@@ -35,11 +31,11 @@ class App extends Component {
               <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                 <Switch>
                   <div style={{ width: 600, }}>
-                    <Route exact path="/" component={Home} />
-                    <Route path="/questions/bad_id" component={NoMatch} />
+                    <Route path="/" exact component={Home} />
                     <Route path="/questions/:question_id" component={UserCard} />
                     <Route path="/add" component={NewPoll} />
                     <Route path="/leaderboard" component={Leaderboard} />
+                    <Route component={NoMatch} />
                   </div>
                 </Switch>
                 </div>
