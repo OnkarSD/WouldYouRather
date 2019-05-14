@@ -21,6 +21,7 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
+
           {authUser === null ? (
             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
               <Login />
@@ -29,15 +30,15 @@ class App extends Component {
             <React.Fragment>
               <Nav />
               <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                <Switch>
-                  <div style={{ width: 600, }}>
-                    <Route path="/" exact component={Home} />
+                <div style={{ width: 600, }}>
+                  <Switch>
+                    <Route exact path="/" component={Home} />
                     <Route path="/questions/:question_id" component={UserCard} />
                     <Route path="/add" component={NewPoll} />
                     <Route path="/leaderboard" component={Leaderboard} />
-                    <Route component={NoMatch} />
+                    <Route params='404' component={NoMatch} />
+                  </Switch>
                   </div>
-                </Switch>
                 </div>
             </React.Fragment>
           )}
