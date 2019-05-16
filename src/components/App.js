@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import { handleInitialData } from '../actions/shared'
 import { connect } from 'react-redux'
 import Login from './Login'
@@ -36,7 +36,7 @@ class App extends Component {
                     <Route path="/questions/:question_id" component={UserCard} />
                     <Route path="/add" component={NewPoll} />
                     <Route path="/leaderboard" component={Leaderboard} />
-                    <Route params='404' component={NoMatch} />
+                    <Route path='/404' component={NoMatch} />
                   </Switch>
                   </div>
                 </div>
